@@ -1,6 +1,6 @@
 import jsonp from 'common/js/jsonp'
 //引入一般不变的confing设置
-import {commonParams, options} from './config'
+import { commonParms, options} from './config'
 export function getRecommend() {
     const url = 'http://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
     const data = Object.assign({}, commonParams, {
