@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-
-    <router-view/>
+    hello world
+    <!-- <router-view/> -->
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 export default {
-  name: 'App'
 }
 </script>
 
-<style>
-#app {
-  
-}
+<style lang="stylus" scoped rel="stylesheet/stylus">
+  @import 'common/stylus/variable'
+
+  #app
+    color: $color-theme
 </style>
