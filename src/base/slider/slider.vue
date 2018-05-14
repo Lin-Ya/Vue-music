@@ -40,7 +40,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this._getSliderWidth();
+      this._setSliderWidth();
       this._initDots();
       this._initSlider();
 
@@ -57,23 +57,23 @@ export default {
     });
   },
   methods: {
-    _getSliderWidth() {
-      this.children = this.$refs.sliderGroup.children;
-      let width = 0;
-      let sliderWidth = this.$refs.slider.clientWidth;
+    _setSliderWidth(isResize) {
+        this.children = this.$refs.sliderGroup.children
 
-      for (let i = 0; i < this.children.length; i++) {
-        let child = this.children[i];
-        addClass(child, "slider-item");
-        child.style.width = sliderWidth + "px";
-        width += sliderWidth;
-      }
+        let width = 0
+        let sliderWidth = this.$refs.slider.clientWidth
+        for (let i = 0; i < this.children.length; i++) {
+          let child = this.children[i]
+          addClass(child, 'slider-item')
 
-      if (this.loop) {
-        width += 2 * sliderWidth;
-      }
-      this.$refs.sliderGroup.style.width = width + "px";
-    },
+          child.style.width = sliderWidth + 'px'
+          width += sliderWidth
+        }
+        if (this.loop && !isResize) {
+          width += 2 * sliderWidth
+        }
+        this.$refs.sliderGroup.style.width = width + 'px'
+      },
     _initSlider() {
       this.slider = new BScroll(this.$refs.slider, {
         scrollX: true,
