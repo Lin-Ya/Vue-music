@@ -1,7 +1,14 @@
 <template>
   <div class="recommend">
     <div class="recommend-content">
-      <div class="slider-wrapper">
+      <div v-if="recommends.length" class="slider-wrapper">
+        <slider>
+          <div v-for="item in recommends" :key="item.id">
+            <a :href="item.linkUrl">
+              <img :src="item.picUrl">
+            </a>
+          </div>
+        </slider>
       </div>
       <div class="recommend-list">
         <h1 class="list-title">热门歌单推荐</h1>
@@ -13,26 +20,36 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getRecommend} from 'api/recommend'
-  //为了使得代码更可读，这里引入ERR_OK
-  import {ERR_OK} from 'api/config'
+import { getRecommend } from "api/recommend";
+//为了使得代码更可读，这里引入ERR_OK
+import { ERR_OK } from "api/config";
+import Slider from "base/slider/slider";
 
-  export default {
-    created(){
-      //在这个生命钩子上发起jsonp，获取推荐信息
-      this._getRecommend()
-    },
-    methods: {
-      _getRecommend(){
-        //记得哟，获取推荐信息的函数是一个promise对象
-        getRecommend().then((res)=>{
-          if(res.code === ERR_OK){
-            console.log(res.data.slider)
-          }
-        })
-      }
+export default {
+  created() {
+    //在这个生命钩子上发起jsonp，获取推荐信息
+    this._getRecommend();
+  },
+  data() {
+    return {
+      recommends: []
+    };
+  },
+  methods: {
+    _getRecommend() {
+      //记得哟，获取推荐信息的函数是一个promise对象
+      getRecommend().then(res => {
+        if (res.code === ERR_OK) {
+          console.log(res.data.slider)
+          this.recommends = res.data.slider; //推荐数据得到的是一个数组
+        }
+      });
     }
+  },
+  components: {
+    Slider
   }
+};
 </script>
 
 <style lang="stylus" scoped rel="stylesheet/stylus">
