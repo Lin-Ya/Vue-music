@@ -20,7 +20,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getRecommend } from "api/recommend";
+import { getRecommend, getDiscList} from "api/recommend";
 //为了使得代码更可读，这里引入ERR_OK
 import { ERR_OK } from "api/config";
 import Slider from "base/slider/slider";
@@ -29,6 +29,7 @@ export default {
   created() {
     //在这个生命钩子上发起jsonp，获取推荐信息
     this._getRecommend();
+    this._getDiscList()
   },
   data() {
     return {
@@ -44,6 +45,14 @@ export default {
           this.recommends = res.data.slider; //推荐数据得到的是一个数组
         }
       });
+    },
+    _getDiscList(){
+      getDiscList().then((res) => {
+          if (res.code === ERR_OK) {
+            console.log(res.data.list)
+            this.discList = res.data.list
+          }
+        })
     }
   },
   components: {

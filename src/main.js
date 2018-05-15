@@ -2,16 +2,22 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'common/stylus/index.styl'
 import fastclick from 'fastclick'
+import VueLazyload from 'vue-lazyload'
+import store from './store'
 
-Vue.config.productionTip = false
+import 'common/stylus/index.styl'
 
 fastclick.attach(document.body)
+
+Vue.use(VueLazyload, {
+  loading: require('common/image/default.png')
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  // 下面的表示的就是一个element create 方法
+  store,
   render: h => h(App)
 })
